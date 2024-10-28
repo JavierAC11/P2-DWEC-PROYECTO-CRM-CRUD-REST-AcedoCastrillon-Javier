@@ -23,9 +23,9 @@ request.onsuccess = () => {
                 const {nombre, telefono, empresa, id} = cliente;
                 const row = document.createElement('tr');
                 row.innerHTML = `
-                    <td class="text-center">${nombre}</td>
-                    <td class="text-center">${telefono}</td>
-                    <td class="text-center">${empresa}</td>
+                    <td class="px-6 py-3 border-b border-gray-200  text-left text-xs leading-4 font-medium text-gray-600 uppercase tracking-wider"">${nombre}</td>
+                    <td class="px-6 py-3 border-b border-gray-200  text-left text-xs leading-4 font-medium text-gray-600 uppercase tracking-wider">${telefono}</td>
+                    <td class="px-6 py-3 border-b border-gray-200  text-left text-xs leading-4 font-medium text-gray-600 uppercase tracking-wider">${empresa}</td>
                     <td>
                         <a href="editar-cliente.html?id=${id}" class="btn btn-primary">Editar</a>
                         <a href="#" data-cliente="${id}" class="btn btn-danger">Eliminar</a>
