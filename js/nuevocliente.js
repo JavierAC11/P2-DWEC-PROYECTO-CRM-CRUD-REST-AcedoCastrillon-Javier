@@ -4,30 +4,7 @@ const email = document.querySelector('#email');
 const telefono = document.querySelector('#telefono');
 const empresa = document.querySelector('#empresa');
 
-class Cliente{
-    constructor(nombre, email, telefono, empresa){
-        this.nombre = nombre;
-        this.email = email;
-        this.telefono = telefono;
-        this.empresa = empresa;
-    }
-}
-
 console.log(nombre)
-
-let request = indexedDB.open("clientesDB", 1);
-
-request.onupgradeneeded = (event) => {
-
-    let db = event.target.result;
-
-    let objectStore = db.createObjectStore("clientes", { keyPath: "id", autoIncrement: true });
-
-    objectStore.createIndex("nombre", "nombre", { unique: false });
-    objectStore.createIndex("email", "email", { unique: false });
-    objectStore.createIndex("telefono", "telefono", { unique: false });
-    objectStore.createIndex("empresa", "empresa", { unique: false });
-}
 
 function validarFormulario(e){
     if (e.target.value.trim().length === 0){
@@ -108,13 +85,39 @@ function obtenerCliene(e){
         empresa: empresa.value
     }
 
-    console.log(cliente)
     return cliente;
 }
+
+
+
 
 nombre.addEventListener('blur', validarFormulario)
 email.addEventListener('blur', validarFormulario)
 telefono.addEventListener('blur', validarFormulario)
 empresa.addEventListener('blur', validarFormulario)
 
-formulario.addEventListener('submit', obtenerCliene)
+formulario.addEventListener('submit', (e) => {
+    let cliente = obtenerCliene(e)
+    let request = indexedDB.open("clientesDB", 1);
+
+    request.onupgradeneeded = (event) => {
+
+        let db = event.target.result;
+
+        let objectStore = db.createObjectStore("clientes", { keyPath: "id", autoIncrement: true });
+
+        objectStore.createIndex("nombre", "nombre", { unique: false });
+        objectStore.createIndex("email", "email", { unique: false });
+        objectStore.createIndex("telefono", "telefono", { unique: false });
+        objectStore.createIndex("empresa", "empresa", { unique: false });
+    }
+    request.onsuccess = (event) => {
+        console.log("test")
+        let db = event.target.result;
+        let transaction = db.transaction(["clientes"], "readwrite");
+        let objectStore = transaction.objectStore("clientes");
+        let peticion = objectStore.add(cliente);
+        peticion.onsuccess = () => {
+            console.log("Cliente agregado correctamente");
+        }
+    }})
