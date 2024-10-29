@@ -1,3 +1,5 @@
+import { eliminarCliente } from "./API.js";
+
 const res = document.querySelector('tbody');
 
 let request = indexedDB.open("clientesDB", 1);
@@ -41,21 +43,10 @@ request.onsuccess = () => {
 res.addEventListener('click', (e) => {
     if(e.target.classList.contains('btn-danger')){
         let id = Number(e.target.dataset.cliente);
-        let request = indexedDB.open("clientesDB", 1);
 
-        request.onsuccess = () => {
-            let db = request.result;
-            let transaction = db.transaction("clientes", "readwrite");
-            let clienteStore = transaction.objectStore("clientes");
-
-            let eliminarCliente = clienteStore.delete(id);
-
-            eliminarCliente.onsuccess = () => {
-                e.target.parentElement.parentElement.remove();
-            }
-        }
-    } else if(e.target.classList.contains('btn-primary')){
-        console.log("test")
-    }
+        eliminarCliente(id);
+        e.target.parentElement.parentElement.remove();
+        
+    } 
 })
 

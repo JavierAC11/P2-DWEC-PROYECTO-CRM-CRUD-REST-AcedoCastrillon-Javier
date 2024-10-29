@@ -1,4 +1,5 @@
 import { obtenerCliente, validarFormulario } from './funciones.js';
+import { nuevoCliente } from './API.js';
 
 const formulario = document.querySelector('#formulario');
 const nombre = document.querySelector('#nombre');
@@ -13,29 +14,12 @@ email.addEventListener('blur', validarFormulario)
 telefono.addEventListener('blur', validarFormulario)
 empresa.addEventListener('blur', validarFormulario)
 
+//TODO: Activar el boton solo si el formulario es correcto
+
 formulario.addEventListener('submit', (e) => {
     e.preventDefault();
-    let cliente = obtenerCliente(e)
-    console.log(cliente)
-    let request = indexedDB.open("clientesDB", 1);
+    let cliente = obtenerCliente(e);
 
-    request.onupgradeneeded = (event) => {
+    nuevoCliente(cliente);
 
-        let db = event.target.result;
-
-        let objectStore = db.createObjectStore("clientes", { keyPath: "id", autoIncrement: true });
-
-        objectStore.createIndex("nombre", "nombre", { unique: false });
-        objectStore.createIndex("email", "email", { unique: false });
-        objectStore.createIndex("telefono", "telefono", { unique: false });
-        objectStore.createIndex("empresa", "empresa", { unique: false });
-    }
-    request.onsuccess = (event) => {
-        let db = event.target.result;
-        let transaction = db.transaction(["clientes"], "readwrite");
-        let objectStore = transaction.objectStore("clientes");
-        let peticion = objectStore.add(cliente);
-        peticion.onsuccess = () => {
-            console.log("Cliente agregado correctamente");
-        }
-    }})
+})

@@ -1,4 +1,5 @@
 import { obtenerCliente, validarFormulario } from './funciones.js';
+import { actualizarCliente } from './API.js';
 
 const nombre = document.querySelector('#nombre');
 const email = document.querySelector('#email');
@@ -40,17 +41,5 @@ function obtenerClienteId(id){
 
 formulario.addEventListener('submit', (e) => {
     let cliente = obtenerCliente(e)
-    let request = indexedDB.open("clientesDB", 1);
-    request.onsuccess = () => {
-        let db = request.result;
-        let transaction = db.transaction("clientes", "readwrite");
-        let clienteStore = transaction.objectStore("clientes");
-
-        clienteStore.delete(Number(id));
-        let actualizarCliente = clienteStore.put(cliente);
-
-        actualizarCliente.onsuccess = () => {
-            window.location.href = "index.html";
-        }
-    }
+    actualizarCliente(cliente, Number(id));
 })
