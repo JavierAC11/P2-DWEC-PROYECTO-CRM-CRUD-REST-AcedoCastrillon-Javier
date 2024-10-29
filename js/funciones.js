@@ -4,6 +4,15 @@ const email = document.querySelector('#email');
 const telefono = document.querySelector('#telefono');
 const empresa = document.querySelector('#empresa');
 
+/**
+ * @regex
+ * emailRegex - Expresión regular para validar el formato del correo electrónico.
+ * @regex /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
+ * 
+ * @regex
+ * telRegex - Expresión regular para validar que el teléfono contenga exactamente 9 dígitos.
+ * @regex /^[0-9]{9}$/
+ */
 export function obtenerCliente(e){
     e.preventDefault();
 
