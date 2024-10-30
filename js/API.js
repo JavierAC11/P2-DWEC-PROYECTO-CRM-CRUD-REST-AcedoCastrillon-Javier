@@ -1,10 +1,3 @@
-//TODO: Pasar todo el crud a este archivo
-
-/*
-Read
-*/
-
-export function cargarBD() {
 let request = indexedDB.open("clientesDB", 1);
 request.onupgradeneeded = (event) => {
 
@@ -17,7 +10,7 @@ request.onupgradeneeded = (event) => {
     objectStore.createIndex("telefono", "telefono", { unique: false });
     objectStore.createIndex("empresa", "empresa", { unique: false });
 }
-}
+
 export function nuevoCliente(cliente) {
     let request = indexedDB.open("clientesDB", 1);
     request.onsuccess = (event) => {

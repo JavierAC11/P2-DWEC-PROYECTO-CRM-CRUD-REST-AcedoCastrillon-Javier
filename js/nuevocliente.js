@@ -6,6 +6,7 @@ const nombre = document.querySelector('#nombre');
 const email = document.querySelector('#email');
 const telefono = document.querySelector('#telefono');
 const empresa = document.querySelector('#empresa');
+const boton = document.querySelector('#boton');
 
 console.log(nombre)
 
@@ -20,6 +21,8 @@ formulario.addEventListener('submit', (e) => {
     e.preventDefault();
     let cliente = obtenerCliente(e);
 
-    nuevoCliente(cliente);
-
+    if (cliente) {
+        nuevoCliente(cliente);
+        formulario.reset();
+    }    
 })

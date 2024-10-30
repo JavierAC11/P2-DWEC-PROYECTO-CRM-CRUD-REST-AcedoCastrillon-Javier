@@ -14,7 +14,7 @@ const empresa = document.querySelector('#empresa');
  * @regex /^[0-9]{9}$/
  */
 export function obtenerCliente(e){
-    e.preventDefault();
+    //e.preventDefault();
 
     if(nombre.value.trim() === '' || empresa.value.trim() === '' || email.value.trim() === '' || telefono.value.trim() === ''){
         mostrarError('Todos los campos son obligatorios', formulario);
