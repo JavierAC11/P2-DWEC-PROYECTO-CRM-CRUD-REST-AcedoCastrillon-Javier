@@ -56,3 +56,34 @@ Crea una transaccion para realizar operaciones en el almacen, en el primer param
 let objectStore = transaction.objectStore("ejemplo");
 ```
 Obtiene una referencia del almacen para poder realizar las operaciones en el almacen con el nombre *ejemplo*
+
+## 5. Añadir datos
+
+```javascript
+let request = objectStore.add({ nombre: "Juan" });
+```
+Añade un nuevo registro al almacen *ejemplo*. El objeto pasado como parámetro contiene los datos del registro.
+
+## 6. Leer datos
+
+```javascript
+let request = objectStore.get(1);
+request.onsuccess = (event) => {
+    console.log("Registro:", event.target.result);
+};
+```
+Obtiene un registro del almacen *ejemplo* con la clave primaria igual a 1.
+
+## 7. Actualizar datos
+
+```javascript
+let request = objectStore.put({ id: 1, nombre: "Juan Actualizado" });
+```
+Actualiza un registro existente en el almacen *ejemplo*. El objeto pasado como parámetro contiene los datos actualizados del registro.
+
+## 8. Eliminar datos
+
+```javascript
+let request = objectStore.delete(1);
+```
+Elimina un registro del almacen *ejemplo* con la clave primaria igual a 1.
