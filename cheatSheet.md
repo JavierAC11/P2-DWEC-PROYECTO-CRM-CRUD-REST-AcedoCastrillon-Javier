@@ -51,3 +51,8 @@ Crea un indice llamado *nombre* el cual se le pasa por el primer paramatro, por 
 let transaction = db.transaction(["ejemplo"], "readwrite");
 ```
 Crea una transaccion para realizar operaciones en el almacen, en el primer parametro de la funcion se introduce el almacen en el cual se quieran hacer las operaciones y en el segundo el tipo de operacion que quieras usar en este caso se una una de lectura y escritura pero tambien puede ser solo lectura con *"readonly"*
+
+```javascript
+let objectStore = transaction.objectStore("ejemplo");
+```
+Obtiene una referencia del almacen para poder realizar las operaciones en el almacen con el nombre *ejemplo*

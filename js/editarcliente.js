@@ -1,5 +1,5 @@
 import { obtenerCliente, validarFormulario } from './funciones.js';
-import { actualizarCliente } from './API.js';
+import { actualizarCliente, obtenerClientes } from './API.js';
 
 const nombre = document.querySelector('#nombre');
 const email = document.querySelector('#email');
@@ -40,6 +40,12 @@ function obtenerClienteId(id){
 }
 
 formulario.addEventListener('submit', (e) => {
+    e.preventDefault();
     let cliente = obtenerCliente(e)
-    actualizarCliente(cliente, Number(id));
+
+    if (cliente){
+        actualizarCliente(cliente, Number(id));
+    }
+
+    
 })

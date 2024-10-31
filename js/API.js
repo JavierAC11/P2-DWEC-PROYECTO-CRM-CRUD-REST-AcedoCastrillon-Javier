@@ -1,3 +1,4 @@
+// Aqui inicializamos la base de datos y creamos las funciones para agregar, eliminar y obtener clientes de la base de datos.
 let request = indexedDB.open("clientesDB", 1);
 request.onupgradeneeded = (event) => {
 
@@ -11,6 +12,11 @@ request.onupgradeneeded = (event) => {
     objectStore.createIndex("empresa", "empresa", { unique: false });
 }
 
+/**
+* Añade un cliente a la base de datos.
+*
+* @param {Object} cliente - el cliente que deseamos añadir.
+*/
 export function nuevoCliente(cliente) {
     let request = indexedDB.open("clientesDB", 1);
     request.onsuccess = (event) => {
@@ -24,6 +30,11 @@ export function nuevoCliente(cliente) {
         }
     }}
 
+/** 
+* Elimina un cliente de la base de datos.
+*
+* @param {Number} id - El id del cliente a eliminar.
+*/
 export function eliminarCliente(id) {
 
     let request = indexedDB.open("clientesDB", 1);
@@ -37,6 +48,12 @@ export function eliminarCliente(id) {
     }
 }
 
+/**
+ * Actualiza los datos de un cliente en la base de datos.
+ * 
+ * @param {Object} nuevosDatos - Los nuevos datos del cliente
+ * @param {Number} id - El id del cliente a actualizar
+ */
 export function actualizarCliente(nuevosDatos, id){
     let request = indexedDB.open("clientesDB", 1);
     request.onsuccess = () => {
@@ -53,6 +70,11 @@ export function actualizarCliente(nuevosDatos, id){
     }
 }
 
+/**
+ * Obtiene los clientes de la base de datos.
+ * 
+ * @returns {Promise} - Una promesa que resuelve con un array de clientes.
+ * */
 export function obtenerClientes(){
     return new Promise((resolve) => {
     let request = indexedDB.open("clientesDB", 1);
@@ -77,7 +99,6 @@ export function obtenerClientes(){
             }
         }
     }
-    console.log("Sale...")
 })
     
 }
