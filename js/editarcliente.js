@@ -1,5 +1,5 @@
 import { obtenerCliente, validarFormulario } from './funciones.js';
-import { actualizarCliente, obtenerClientes } from './API.js';
+import { actualizarCliente } from './API.js';
 
 const nombre = document.querySelector('#nombre');
 const email = document.querySelector('#email');
@@ -17,10 +17,15 @@ email.addEventListener('blur', validarFormulario)
 telefono.addEventListener('blur', validarFormulario)
 empresa.addEventListener('blur', validarFormulario)
 
+
+/**
+ * Se obtiene el cliente por su id y se mestran los datos en el formulario. 
+ * 
+ * @param {Number} id - El id del cliente a obtener 
+ */
 function obtenerClienteId(id){
     
     let request = indexedDB.open("clientesDB", 1);
-
     request.onsuccess = () => {
         let db = request.result;
         let transaction = db.transaction("clientes", "readwrite");
@@ -42,10 +47,9 @@ function obtenerClienteId(id){
 formulario.addEventListener('submit', (e) => {
     e.preventDefault();
     let cliente = obtenerCliente(e)
-
+ 
+    // En la funcion de obtenerCliente se valida que los campos sean correctos y si no no devuelve nada y no entra en el if
     if (cliente){
         actualizarCliente(cliente, Number(id));
-    }
-
-    
+    }    
 })
